@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Some of theprojects Adam has worked on</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .paper-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .paper-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .paper-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .paper-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .paper-preview {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .impact-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .explore-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .explore-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .detail-level {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+        }
+
+        .detail-level h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .detail-level p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .continue-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .figure-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .figure-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .papers-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 20px;
+                max-width: calc(100% - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 Brain Research Explorer</h1>
+            <p>Discover how cutting-edge neuroscience affects your daily life</p>
+        </div>
+
+        <div class="papers-grid">
+            <!-- Paper 1: Snyder et al. -->
+            <div class="paper-card" onclick="openModal('paper1')">
+                <div class="paper-title">Understanding How Your Brain Folds Form</div>
+                <div class="impact-badge">🎯 Impacts: Child Development & Medical Diagnosis</div>
+                <div class="paper-preview">
+                    Scientists have discovered that the unique wrinkles and folds in your brain follow specific patterns that begin forming before birth...
+                </div>
+                <button class="explore-btn">Explore This Research →</button>
+            </div>
+
+            <!-- Paper 2: Goyal et al. -->
+            <div class="paper-card" onclick="openModal('paper2')">
+                <div class="paper-title">How Brain Networks Predict Your Child's Success</div>
+                <div class="impact-badge">🎯 Impacts: Education & Mental Health</div>
+                <div class="paper-preview">
+                    Researchers found patterns in children's brain activity that can predict academic performance, behavior problems, and mental health...
+                </div>
+                <button class="explore-btn">Explore This Research →</button>
+            </div>
+
+            <!-- Paper 3: Irani et al. -->
+            <div class="paper-card" onclick="openModal('paper3')">
+                <div class="paper-title">A New Type of Seizure That Doctors Can Now Treat</div>
+                <div class="impact-badge">🎯 Impacts: Medical Treatment & Quality of Life</div>
+                <div class="paper-preview">
+                    Scientists identified a previously misunderstood type of seizure and found that immune system treatments work better than traditional drugs...
+                </div>
+                <button class="explore-btn">Explore This Research →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Paper 1 -->
+    <div id="paper1-modal" class="detail-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('paper1')">&times;</button>
+            <h2>Understanding How Your Brain Folds Form</h2>
+            <div class="progress-bar">
+                <div id="paper1-progress" class="progress-fill"></div>
+            </div>
+            
+            <div id="paper1-level1" class="detail-level">
+                <h3>🤔 Why Should You Care?</h3>
+                <p>Every person's brain has a unique pattern of wrinkles and folds, like fingerprints. This research discovered that these patterns aren't random - they follow specific rules that start forming when babies are still in the womb.</p>
+                <button class="continue-btn" onclick="showNextLevel('paper1', 2)">Tell me more →</button>
+            </div>
+
+            <div id="paper1-level2" class="detail-level hidden">
+                <h3>🏥 How This Helps Families</h3>
+                <p>Understanding brain fold patterns helps doctors better diagnose developmental disorders in children. If doctors can see unusual folding patterns early, they can intervene sooner to help children with conditions like autism, ADHD, or learning disabilities.</p>
+                <div class="figure-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y4ZjlmYSIvPgogIDx0ZXh0IHg9IjIwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2NjciPkJyYWluIEZvbGRpbmcgUGF0dGVybnM8L3RleHQ+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIzMCIgZmlsbD0iIzY2N2VlYSIgb3BhY2l0eT0iMC43Ii8+CiAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSIzMCIgZmlsbD0iIzc2NGJhMiIgb3BhY2l0eT0iMC43Ii8+CiAgPHRleHQgeD0iMTAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzMzMyI+TGluZWFyIFN1bGNpPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMTQwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiMzMzMiPkNvbXBsZXggU3VsY2k8L3RleHQ+CiAgPHRleHQgeD0iMjAwIiB5PSIyNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzY2NiI+Rm9ybSBhdCBkaWZmZXJlbnQgdGltZXMgZHVyaW5nIGRldmVsb3BtZW50PC90ZXh0Pgo8L3N2Zz4=" alt="Brain folding patterns diagram">
+                    <p><em>Scientists found two main types of brain folds that form at different times</em></p>
+                </div>
+                <button class="continue-btn" onclick="showNextLevel('paper1', 3)">What's the bigger picture? →</button>
+            </div>
+
+            <div id="paper1-level3" class="detail-level hidden">
+                <h3>🔬 The Scientific Breakthrough</h3>
+                <p>This study analyzed brain scans from over 34,000 adults and tracked brain development in fetuses. They discovered that "linear" folds (simple, straight) form first around 25 weeks of pregnancy, while "complex" folds (branched, intricate) form later.</p>
+                <p><strong>Real-world impact:</strong> This knowledge helps create better tools for predicting and treating brain development disorders, potentially helping millions of children worldwide get earlier, more effective interventions.</p>
+                <button class="continue-btn" onclick="showNextLevel('paper1', 4)">Show me the research details →</button>
+            </div>
+
+            <div id="paper1-level4" class="detail-level hidden">
+                <h3>📊 Key Research Findings</h3>
+                <p><strong>Study Size:</strong> 34,725 adult brain scans + 228 fetal brain scans</p>
+                <p><strong>Key Discovery:</strong> Brain folds follow a "bimodal taxonomy" - two distinct categories that form at different developmental stages</p>
+                <p><strong>Genetic Component:</strong> Linear (early-forming) folds are more heritable, meaning they're more influenced by genetics than environment</p>
+                <p><strong>Clinical Applications:</strong> These patterns can help identify neurodevelopmental disorders earlier and more accurately than current methods</p>
+                <p><strong>Future Impact:</strong> This research provides a foundation for personalized medicine approaches to brain development disorders.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Paper 2 -->
+    <div id="paper2-modal" class="detail-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('paper2')">&times;</button>
+            <h2>How Brain Networks Predict Your Child's Success</h2>
+            <div class="progress-bar">
+                <div id="paper2-progress" class="progress-fill"></div>
+            </div>
+            
+            <div id="paper2-level1" class="detail-level">
+                <h3>🎓 Why This Matters for Parents</h3>
+                <p>Scientists discovered that the way different parts of a child's brain "talk" to each other can predict how well they'll do in school, their behavior, and even their family's socioeconomic factors. This isn't about judging children - it's about understanding how to help them succeed.</p>
+                <button class="continue-btn" onclick="showNextLevel('paper2', 2)">How does this help kids? →</button>
+            </div>
+
+            <div id="paper2-level2" class="detail-level hidden">
+                <h3>🧒 Practical Applications for Families</h3>
+                <p>This research helps identify children who might need extra support before they fall behind. Brain connectivity patterns can reveal:</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>Children who might struggle with attention or focus</li>
+                    <li>Kids who could benefit from different learning approaches</li>
+                    <li>Early signs of conditions like ADHD or anxiety</li>
+                    <li>How family income and education affect brain development</li>
+                </ul>
+                <div class="figure-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y4ZjlmYSIvPgogIDx0ZXh0IHg9IjIwMCIgeT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0iIzMzMyI+QnJhaW4gTmV0d29yayBDb25uZWN0aW9uczwvdGV4dD4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjIwIiBmaWxsPSIjNjY3ZWVhIi8+CiAgPGNpcmNsZSBjeD0iMzAwIiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iIzc2NGJhMiIvPgogIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjIwMCIgcj0iMjAiIGZpbGw9IiM0Y2FmNTAiLz4KICA8bGluZSB4MT0iMTIwIiB5MT0iMTAwIiB4Mj0iMjgwIiB5Mj0iMTAwIiBzdHJva2U9IiM2NjdlZWEiIHN0cm9rZS13aWR0aD0iMyIvPgogIDxsaW5lIHgxPSIxMTAiIHkxPSIxMjAiIHgyPSIxOTAiIHkyPSIxODAiIHN0cm9rZT0iIzc2NGJhMiIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPGxpbmUgeDE9IjI5MCIgeTE9IjEyMCIgeDI9IjIxMCIgeTI9IjE4MCIgc3Ryb2tlPSIjNGNhZjUwIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8dGV4dCB4PSIxMDAiIHk9IjE0NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMzMzIj5BdHRlbnRpb248L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzMzMyI+TWVtb3J5PC90ZXh0PgogIDx0ZXh0IHg9IjIwMCIgeT0iMjI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMzMzMiPkV4ZWN1dGl2ZSBGdW5jdGlvbjwvdGV4dD4KICA8dGV4dCB4PSIyMDAiIHk9IjI3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNjY2Ij5TdHJvbmdlciBjb25uZWN0aW9ucyA9IEJldHRlciBwZXJmb3JtYW5jZTwvdGV4dD4KPC9zdmc+" alt="Brain network connections diagram">
+                    <p><em>Stronger connections between brain regions correlate with better performance</em></p>
+                </div>
+                <button class="continue-btn" onclick="showNextLevel('paper2', 3)">What did the study find? →</button>
+            </div>
+
+            <div id="paper2-level3" class="detail-level hidden">
+                <h3>📈 Key Discoveries</h3>
+                <p>The study found a "positive-negative axis" in brain development:</p>
+                <p><strong>Positive side:</strong> Children with stronger brain network connections showed better working memory, executive function, and came from families with higher income and education.</p>
+                <p><strong>Negative side:</strong> Children with weaker connections were more likely to have ADHD symptoms, conduct problems, and rule-breaking behavior.</p>
+                <p><strong>Most importantly:</strong> This pattern was consistent across different racial and ethnic groups, suggesting it reflects fundamental aspects of human brain development rather than cultural bias.</p>
+                <button class="continue-btn" onclick="showNextLevel('paper2', 4)">Show me the research details →</button>
+            </div>
+
+            <div id="paper2-level4" class="detail-level hidden">
+                <h3>🔬 Research Methodology & Impact</h3>
+                <p><strong>Study Size:</strong> 5,013 children aged 9-10 from across the United States</p>
+                <p><strong>Method:</strong> Brain scans during rest (fMRI) combined with detailed behavioral and family assessments</p>
+                <p><strong>Key Innovation:</strong> Used advanced mathematical techniques (Canonical Correlation Analysis) to find patterns linking brain connectivity to life outcomes</p>
+                <p><strong>Replication Success:</strong> This study confirmed earlier findings from adult studies, showing these patterns exist across the lifespan</p>
+                <p><strong>Future Applications:</strong> Could lead to early intervention programs, personalized education approaches, and better understanding of how social factors affect brain development</p>
+                <p><strong>Societal Impact:</strong> Helps address health disparities by showing how socioeconomic factors literally shape brain development</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Paper 3 -->
+    <div id="paper3-modal" class="detail-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('paper3')">&times;</button>
+            <h2>A New Type of Seizure That Doctors Can Now Treat</h2>
+            <div class="progress-bar">
+                <div id="paper3-progress" class="progress-fill"></div>
+            </div>
+            
+            <div id="paper3-level1" class="detail-level">
+                <h3>😷 A Medical Mystery Solved</h3>
+                <p>For years, some patients suffered from unusual seizures that caused brief, jerky movements in their face and arm. Traditional epilepsy drugs didn't work, leaving patients and families frustrated. This research identified these as a completely different type of seizure with a surprising cause.</p>
+                <button class="continue-btn" onclick="showNextLevel('paper3', 2)">What was causing these seizures? →</button>
+            </div>
+
+            <div id="paper3-level2" class="detail-level hidden">
+                <h3>🦠 The Surprising Cause</h3>
+                <p>These "faciobrachial dystonic seizures" aren't caused by typical brain electrical problems. Instead, they're caused by the patient's own immune system mistakenly attacking brain cells.</p>
+                <p><strong>The key discovery:</strong> Patients had antibodies (immune proteins) that were targeting healthy brain cells, specifically those involving potassium channels that help brain cells communicate.</p>
+                <p>This means the "seizures" were actually symptoms of an autoimmune condition - like the brain's version of when your immune system mistakenly attacks your joints in rheumatoid arthritis.</p>
+                <button class="continue-btn" onclick="showNextLevel('paper3', 3)">How does this change treatment? →</button>
+            </div>
+
+            <div id="paper3-level3" class="detail-level hidden">
+                <h3>💊 Revolutionary Treatment Approach</h3>
+                <p><strong>Old approach:</strong> Anti-seizure medications (didn't work well)</p>
+                <p><strong>New approach:</strong> Immune system therapy</p>
+                <p>The research showed that treating the immune system - not just the seizures - was dramatically more effective. Patients improved when doctors used immunotherapy (treatments that calm down the overactive immune system).</p>
+                <p><strong>Real-world impact:</strong> Patients who suffered for months with drug-resistant seizures could finally get relief with the right treatment approach.</p>
+                <button class="continue-btn" onclick="showNextLevel('paper3', 4)">Show me the clinical details →</button>
+            </div>
+
+            <div id="paper3-level4" class="detail-level hidden">
+                <h3>🏥 Clinical Research Details</h3>
+                <p><strong>Study Size:</strong> 10 patients with this rare condition</p>
+                <p><strong>Age Range:</strong> 28-92 years old (median age 68)</p>
+                <p><strong>Key Finding:</strong> All patients tested positive for voltage-gated potassium channel antibodies</p>
+                <p><strong>Treatment Success:</strong> Immunotherapy was significantly more effective than anti-epileptic drugs (p = 0.006)</p>
+                <p><strong>Duration of Symptoms:</strong> Patients remained drug-resistant for a median of 30 days before proper immune treatment</p>
+                <p><strong>Broader Impact:</strong> This research helps doctors recognize that some "seizures" are actually autoimmune conditions, leading to faster, more effective treatment for similar patients worldwide</p>
+                <p><strong>Medical Significance:</strong> Expands our understanding of autoimmune encephalitis and provides a clear diagnostic and treatment pathway</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLevels = {
+            paper1: 1,
+            paper2: 1,
+            paper3: 1
+        };
+
+        function openModal(paperId) {
+            const modal = document.getElementById(paperId + '-modal');
+            modal.style.display = 'flex';
+            currentLevels[paperId] = 1;
+            updateProgress(paperId);
+            
+            // Reset all levels to hidden except level 1
+            for (let i = 1; i <= 4; i++) {
+                const level = document.getElementById(paperId + '-level' + i);
+                if (level) {
+                    level.classList.toggle('hidden', i !== 1);
+                }
+            }
+        }
+
+        function closeModal(paperId) {
+            const modal = document.getElementById(paperId + '-modal');
+            modal.style.display = 'none';
+        }
+
+        function showNextLevel(paperId, nextLevel) {
+            // Hide current level
+            const currentLevel = document.getElementById(paperId + '-level' + currentLevels[paperId]);
+            if (currentLevel) {
+                currentLevel.classList.add('hidden');
+            }
+
+            // Show next level
+            const nextLevelElement = document.getElementById(paperId + '-level' + nextLevel);
+            if (nextLevelElement) {
+                nextLevelElement.classList.remove('hidden');
+                currentLevels[paperId] = nextLevel;
+                updateProgress(paperId);
+                
+                // Smooth scroll to top of modal content
+                const modalContent = nextLevelElement.closest('.modal-content');
+                modalContent.scrollTop = 0;
+            }
+        }
+
+        function updateProgress(paperId) {
+            const progressBar = document.getElementById(paperId + '-progress');
+            const progress = (currentLevels[paperId] / 4) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        // Close modal when clicking outside of it
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('detail-modal')) {
+                const modalId = event.target.id.replace('-modal', '');
+                closeModal(modalId);
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModal = document.querySelector('.detail-modal[style*="flex"]');
+                if (openModal) {
+                    const modalId = openModal.id.replace('-modal', '');
+                    closeModal(modalId);
+                }
+            }
+        });
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stagger animation of paper cards
+            const cards = document.querySelectorAll('.paper-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = (index * 0.2) + 's';
+            });
+
+            // Add hover effect sounds (visual feedback)
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // Add some educational tooltips
+        function showTooltip(element, text) {
+            // Simple tooltip implementation
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.innerHTML = text;
+            tooltip.style.cssText = `
+                position: absolute;
+                background: #333;
+                color: white;
+                padding: 8px 12px;
+                border-radius: 5px;
+                font-size: 12px;
+                white-space: nowrap;
+                z-index: 1001;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            `;
+            
+            document.body.appendChild(tooltip);
+            
+            const rect = element.getBoundingClientRect();
+            tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
+            tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+            
+            setTimeout(() => tooltip.style.opacity = '1', 10);
+            
+            setTimeout(() => {
+                tooltip.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(tooltip), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
