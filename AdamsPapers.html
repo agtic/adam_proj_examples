@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brain Research Explorer</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 20px; background: #f4f4f4; }
+    .paper-list { list-style: none; padding: 0; }
+    .paper { background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); cursor: pointer; }
+    .paper img { max-width: 100%; margin-top: 10px; display: none; }
+    .detail { margin-top: 10px; color: #333; display: none; }
+    .more { color: #0077cc; cursor: pointer; display: inline-block; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Brain Research Explorer</h1>
+  <p>Click on each title to learn more about how this research matters to your health and life.</p>
+  <ul class="paper-list">
+    <li class="paper" onclick="revealMore(0)">
+      <strong>1. How Your Brain's Wiring Affects Your Life</strong>
+      <div class="detail">
+        <p><strong>Why it matters:</strong> This study shows a key connection between the way different parts of your brain communicate and your everyday thinking, emotions, and even income. In short, better brain connectivity means better life outcomes.</p>
+        <span class="more" onclick="showDeeper(event, 0)">Tell me more...</span>
+        <div class="detail-level-2" style="display:none">
+          <p>Researchers replicated and confirmed that a single brain connectivity pattern is linked to things like memory, education level, and emotional stability. It's a hopeful step toward using brain scans to support mental health and learning strategies.</p>
+          <img src="Snyder et al Figure.png" alt="Snyder et al Figure" />
+        </div>
+      </div>
+    </li>
+    <li class="paper" onclick="revealMore(1)">
+      <strong>2. Preventing Dementia by Treating a Hidden Seizure Disorder</strong>
+      <div class="detail">
+        <p><strong>Why it matters:</strong> This research shows that early treatment of a misunderstood type of seizure (called faciobrachial dystonic seizures) can prevent memory loss and brain damage—especially in older adults.</p>
+        <span class="more" onclick="showDeeper(event, 1)">Tell me more...</span>
+        <div class="detail-level-2" style="display:none">
+          <p>The study found that immunotherapy (rather than standard epilepsy drugs) was the key to stopping seizures and avoiding cognitive decline. This has major implications for how doctors treat certain types of autoimmune brain inflammation.</p>
+          <img src="Irani et al Figure.png" alt="Irani et al Figure" />
+        </div>
+      </div>
+    </li>
+    <li class="paper" onclick="revealMore(2)">
+      <strong>3. How Your Brain Folds Could Shape Your Future</strong>
+      <div class="detail">
+        <p><strong>Why it matters:</strong> This research shows that the way your brain folds before birth (its sulcal shape) may predict life outcomes, from mental health to cognitive ability. And it's visible on an MRI.</p>
+        <span class="more" onclick="showDeeper(event, 2)">Tell me more...</span>
+        <div class="detail-level-2" style="display:none">
+          <p>The study finds a link between fetal brain development and adult brain structure and function. This opens up new paths for early screening and understanding lifelong neurological differences.</p>
+          <img src="Goyal et al Figure.png" alt="Goyal et al Figure" />
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <script>
+    function revealMore(index) {
+      const details = document.querySelectorAll('.detail');
+      details[index].style.display = details[index].style.display === 'block' ? 'none' : 'block';
+    }
+
+    function showDeeper(event, index) {
+      event.stopPropagation();
+      const deeper = document.querySelectorAll('.detail-level-2');
+      deeper[index].style.display = deeper[index].style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
